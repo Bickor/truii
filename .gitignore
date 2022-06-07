@@ -1,1 +1,5 @@
-*.txt
+# Files
+secrets.py
+
+# Folders
+/__pycache__
