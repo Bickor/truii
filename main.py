@@ -1,6 +1,6 @@
 import api
 
 def main():
-    api.getBoard()
+    api.getListsOnBoard()
 
 main()
