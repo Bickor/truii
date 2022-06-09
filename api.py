@@ -17,9 +17,9 @@ headers = {
     "Accept": "application/json"
 }
 
-# In order to understand all the methods, you must understand trello's format.
+# In order to understand all the methods, you must understand trellos format.
 # Each member can have multiple boards. A board can have multiple lists. Each
-# list can have many cards.
+# list can have multiple cards.
 
 # Get's all the board information with their respective metadata.
 def getMemberBoardMetadata():
@@ -87,6 +87,29 @@ def getCardsOnBoard():
     else:
         print("Request failed")
 
+# Gets the cards on a board with all their metadata.
+def getCardsWithMetadataOnBoard():
+    #FIXME: Implement flag for same method with different information required?
+    print("Gets all cards in a board")
+
+    query = {
+        "key": myKey,
+        "token": myToken,
+    }
+
+    response = requests.request(
+        "GET",
+        url_board_cards,
+        headers=headers,
+        params=query
+    )
+    json = response.json()
+
+    if (response.status_code < 300):
+        print(json[7])
+    else:
+        print("Request failed")
+
 # Gets all the lists on a board.
 def getListsOnBoard():
     query = {
@@ -106,3 +129,17 @@ def getListsOnBoard():
         print(json)
     else:
         print("Request failed")
+
+# Gets all the lists on a board and cards on each list and prints them.
+def getListsAndCardsOnBoard():
+    #TODO: Implement method.
+
+    # Change other methods to return instead of simply print.
+    # Create a method that gets the cards metadata as well.
+    # Use metadata of cards and information from lists on board
+    # to figure out which card belongs to which list.
+    # Can use index of each card for this portion.
+
+    # can use each cards section: 
+    # card["idList"]
+    pass
