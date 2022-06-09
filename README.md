@@ -5,7 +5,7 @@ A Trello tui written in python.
 - [X] Add key and token as secrets
 - [X] Get all trello cards
 - [X] Get trello lists on board
-- [ ] Start documenting methods
+- [X] Start documenting methods
 - [ ] Build board with cards
 - [ ] Look into npyscreen
 - [ ] Add different calls (or urls?) for different aspects of trello 

@@ -17,10 +17,14 @@ headers = {
     "Accept": "application/json"
 }
 
+# In order to understand all the methods, you must understand trello's format.
+# Each member can have multiple boards. A board can have multiple lists. Each
+# list can have many cards.
+
+# Get's all the board information with their respective metadata.
 def getMemberBoardMetadata():
     print("Member information")
 
-    # Add any fields needed to the query
     query = {
         "key": myKey,
         "token": myToken,
@@ -37,8 +41,11 @@ def getMemberBoardMetadata():
     else:
         print("Request failed")
 
+# Gets the name of every board owned by member.
 def memberBoardsNames():
     print("Board Names")
+
+    # Fields can be added to queries
     query = {
         "key": myKey,
         "token": myToken,
@@ -56,7 +63,10 @@ def memberBoardsNames():
     else:
         print("Request failed")
 
-def getBoard():
+# Gets all the cards on a board but only prints each cards' name.
+def getCardsOnBoard():
+    print("Gets all cards in a board")
+
     query = {
         "key": myKey,
         "token": myToken,
@@ -70,13 +80,14 @@ def getBoard():
     )
     json = response.json()
 
-    # TODO: Can also get board index and card index here.
     if (response.status_code < 300):
+        #TODO: Use the card indexes to do something print the cards in some way with the list name.
         for card in json:
             print(card["name"])
     else:
         print("Request failed")
 
+# Gets all the lists on a board.
 def getListsOnBoard():
     query = {
         "key": myKey,
@@ -91,7 +102,6 @@ def getListsOnBoard():
     )
     json = response.json()
 
-    # TODO: Can also get board index and card index here.
     if (response.status_code < 300):
         print(json)
     else:
