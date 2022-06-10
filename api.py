@@ -6,11 +6,14 @@ myKey = secrets.TRELLO_KEY
 myToken = secrets.TRELLO_TOKEN
 member_id = secrets.MEMBER_ID
 board_id = secrets.SAMPLE_BOARD_ID
+list_id = secrets.SAMPLE_LIST_ID
 
 # URLs
 url_boards = "https://api.trello.com/1/members/{member_id}/boards".format(member_id = member_id) # Get information about all boards belonging to member_id
-url_board_cards = "https://api.trello.com/1/boards/{board_id}/cards".format(board_id = board_id)
 url_board_lists = "https://api.trello.com/1/boards/{board_id}/lists".format(board_id = board_id)
+url_board_cards = "https://api.trello.com/1/boards/{board_id}/cards".format(board_id = board_id)
+url_list_cards = "https://api.trello.com/1/lists/{list_id}/cards".format(list_id = list_id)
+
 
 # Headers
 headers = {
@@ -36,13 +39,17 @@ def getMemberBoardMetadata():
         headers=headers,
         params=query
     )
+
+    json = response.json()
+
     if (response.status_code < 300):
-        print(response.json())
+        print(json)
     else:
         print("Request failed")
+    return json
 
 # Gets the name of every board owned by member.
-def memberBoardsNames():
+def getMemberBoardsNames():
     print("Board Names")
 
     # Fields can be added to queries
@@ -58,10 +65,83 @@ def memberBoardsNames():
         headers=headers,
         params=query
     )
+
+    json = response.json()
+
     if (response.status_code < 300):
-        print(response.json())
+        print(json)
     else:
         print("Request failed")
+    return json
+
+# Gets all the lists on a board.
+def getListsOnBoard(board_id):
+    print("Lists on board")
+
+    query = {
+        "key": myKey,
+        "token": myToken,
+    }
+
+    response = None
+    if (board_id is None):
+        response = requests.request(
+            "GET",
+            url_board_lists,
+            headers=headers,
+            params=query
+        )
+    else:
+        url = "https://api.trello.com/1/boards/{board_id}/lists".format(board_id = board_id)
+        response = requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query
+        )
+
+    json = response.json()
+
+    if (response.status_code < 300):
+        for list in json:
+            print(list["name"])
+    else:
+        print("Request failed")
+    return json
+
+def getCardsOnList(list_id):
+    print("Cards on List")
+
+    query = {
+        "key": myKey,
+        "token": myToken,
+    }
+
+    response = None
+    if (board_id is None):
+        response = requests.request(
+            "GET",
+            url_board_lists,
+            headers=headers,
+            params=query
+        )
+    else:
+        url = "https://api.trello.com/1/lists/{list_id}/cards".format(list_id = list_id)
+        response = requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=query
+        )
+
+    json = response.json()
+
+    if (response.status_code < 300):
+        for card in json:
+            print(card["name"])
+    else:
+        print("Request failed")
+    return json
 
 # Gets all the cards on a board but only prints each cards' name.
 def getCardsOnBoard():
@@ -86,6 +166,7 @@ def getCardsOnBoard():
             print(card["name"])
     else:
         print("Request failed")
+    return json
 
 # Gets the cards on a board with all their metadata.
 def getCardsWithMetadataOnBoard():
@@ -109,26 +190,7 @@ def getCardsWithMetadataOnBoard():
         print(json[7])
     else:
         print("Request failed")
-
-# Gets all the lists on a board.
-def getListsOnBoard():
-    query = {
-        "key": myKey,
-        "token": myToken,
-    }
-
-    response = requests.request(
-        "GET",
-        url_board_lists,
-        headers=headers,
-        params=query
-    )
-    json = response.json()
-
-    if (response.status_code < 300):
-        print(json)
-    else:
-        print("Request failed")
+    return json
 
 # Gets all the lists on a board and cards on each list and prints them.
 def getListsAndCardsOnBoard():
