@@ -18,9 +18,6 @@ def getMemberBoardsNames():
 def getListsOnBoard(board_id):
     return boards.get_lists_on_board(board_id)
 
-def getCardsOnList(list_id):
-    return lists.get_cards_on_list(list_id)
-
 # Gets all the cards on a board but only prints each cards' name.
 def getCardsOnBoard():
     return boards.get_cards_on_board()
@@ -28,3 +25,6 @@ def getCardsOnBoard():
 # Gets the cards on a board with all their metadata.
 def getCardsWithMetadataOnBoard():
     return boards.get_cards_with_metadata_on_board()
+
+def getCardsOnList(list_id):
+    return lists.get_cards_on_list(list_id)

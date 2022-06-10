@@ -8,7 +8,8 @@ A Trello tui written in python.
 - [X] Start documenting methods
 - [X] Change methods to return instead of print
 - [X] Refactor to getBoards -> Choose board -> get lists in board -> get cards in each list
+- [ ] Add flags for redundant methods
+- [ ] Populate cards methods
 - [ ] Build board with cards
 - [ ] Look into npyscreen
-- [ ] Add different calls (or urls?) for different aspects of trello 
 - [ ] Design?
