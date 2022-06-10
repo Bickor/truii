@@ -23,8 +23,8 @@ headers = {
 # Each member can have multiple boards. A board can have multiple lists. Each
 # list can have multiple cards.
 
-# Get's all the board information with their respective metadata.
-def get_member_boards_metadata():
+# Gets information on all boards owned by the member.
+def get_member_boards(metadata):
     print("Member information")
     
     query = {
@@ -32,31 +32,8 @@ def get_member_boards_metadata():
         "token": myToken,
     }
 
-    response = requests.request(
-        "GET",
-        url_boards,
-        headers=headers,
-        params=query
-    )
-
-    json = response.json()
-
-    if (response.status_code < 300):
-        print(json)
-    else:
-        print("Request failed")
-    return json
-
-# Gets the name of every board owned by member.
-def get_member_boards_names():
-    print("Board Names")
-
-    # Fields can be added to queries
-    query = {
-        "key": myKey,
-        "token": myToken,
-        "fields": "name,url"
-    }
+    if not metadata:
+        query["fields"] = "name,url"
 
     response = requests.request(
         "GET",
@@ -73,7 +50,7 @@ def get_member_boards_names():
         print("Request failed")
     return json
 
-# Gets all the lists on a board.
+# Gets all the lists on a specific board.
 def get_lists_on_board(board_id):
     print("Lists on board")
 
@@ -108,8 +85,8 @@ def get_lists_on_board(board_id):
         print("Request failed")
     return json
 
-# Gets all the cards on a board but only prints each cards' name.
-def get_cards_on_board():
+# Gets all the cards on a board.
+def get_cards_on_board(metadata):
     print("Gets all cards in a board")
 
     query = {
@@ -126,33 +103,17 @@ def get_cards_on_board():
     json = response.json()
 
     if (response.status_code < 300):
-        #TODO: Use the card indexes to do something print the cards in some way with the list name.
-        for card in json:
-            print(card["name"])
+        if metadata:
+            return json
+        else:
+            cards = []
+            for card in json:
+                card_information = {
+                    "id": card["id"],
+                    "name": card["name"]
+                }
+                cards.append(card_information)
+            return cards
     else:
         print("Request failed")
-    return json
-
-# Gets the cards on a board with all their metadata.
-def get_cards_with_metadata_on_board():
-    #FIXME: Implement flag for same method with different information required?
-    print("Gets all cards in a board")
-
-    query = {
-        "key": myKey,
-        "token": myToken,
-    }
-
-    response = requests.request(
-        "GET",
-        url_board_cards,
-        headers=headers,
-        params=query
-    )
-    json = response.json()
-
-    if (response.status_code < 300):
-        print(json)
-    else:
-        print("Request failed")
-    return json
+        return "Request failed"

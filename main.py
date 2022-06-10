@@ -1,7 +1,7 @@
 import api
 
 def main():
-    board = api.getMemberBoardsNames()[0]
+    board = api.getMemberBoards()[0]
     print(board["name"])
     board_list_0 = api.getListsOnBoard(board["id"])[0]
     print(board_list_0)

@@ -15,6 +15,7 @@ headers = {
     "Accept": "application/json"
 }
 
+# TODO: add flag for if we want metadata
 # Returns all the cards on a specific list.
 def get_cards_on_list(list_id):
     print("Cards on List")

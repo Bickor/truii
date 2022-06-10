@@ -6,9 +6,10 @@ import cards
 # Each member can have multiple boards. A board can have multiple lists. Each
 # list can have multiple cards.
 
+#TODO: Add general input checking to each method.
 # Get's all the board information with their respective metadata.
-def getMemberBoardMetadata():
-    return boards.get_member_boards_metadata()
+def getMemberBoards(metadata=True):
+    return boards.get_member_boards(metadata)
 
 # Gets the name of every board owned by member.
 def getMemberBoardsNames():
@@ -19,8 +20,8 @@ def getListsOnBoard(board_id):
     return boards.get_lists_on_board(board_id)
 
 # Gets all the cards on a board but only prints each cards' name.
-def getCardsOnBoard():
-    return boards.get_cards_on_board()
+def getCardsOnBoard(metadata=True):
+    return boards.get_cards_on_board(metadata)
 
 # Gets the cards on a board with all their metadata.
 def getCardsWithMetadataOnBoard():
