@@ -1,5 +1,4 @@
 import api
-import secrets
 
 def main():
     board = api.getMemberBoardsNames()[0]
