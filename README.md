@@ -15,4 +15,5 @@ A Trello tui written in python.
 - [ ] Populate cards methods
 - [ ] Build board with cards
 - [ ] Look into npyscreen
+- [ ] Look into ncurses or bashsimplecurses
 - [ ] Design?
